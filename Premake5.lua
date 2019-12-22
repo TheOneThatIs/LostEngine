@@ -20,13 +20,14 @@ project "Lost"
     objdir("Intermediates/" .. outputdir .. "/%{prj.name}")
 
     files{
-        "%{prj.name}/Source/**.h",
-        "%{prj.name}/Source/**.cpp"
+        "%{prj.name}/Source/Lost/**.h",
+        "%{prj.name}/Source/Lost/**.cpp"
     }
 
     includedirs{
         "%{prj.name}/Source/",
-        "%{prj.name}/Dependencies/GLFW/include/"
+        "Dependencies/GLFW/include/",
+        "Dependencies/spdlog/include/"
     }
 
     filter "system:windows"
@@ -35,7 +36,7 @@ project "Lost"
         systemversion "latest"
 
         defines{
-            
+            "GLEW_BUILD"
         }
 
     filter "configurations:Debug"

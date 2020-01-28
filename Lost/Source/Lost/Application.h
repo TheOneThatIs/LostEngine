@@ -1,10 +1,10 @@
 #pragma once
-#include"Graphics/Window.h"
+#include"Graphics\Renderer.h"
 
 namespace Lost {
 	class Application {
 	protected:
-		Window window;
+		Renderer renderer;
 	public:
 		Application();
 		Application(int windowWidth, int windowHeight, const char* windowTitle);

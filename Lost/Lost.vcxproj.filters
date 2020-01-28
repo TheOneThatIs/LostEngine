@@ -13,15 +13,25 @@
     <ClInclude Include="Source\Lost\Events\ApplicationEvents.h" />
     <ClInclude Include="Source\Lost\Events\IEvent.h" />
     <ClInclude Include="Source\Lost\Events\EventBus.h" />
-    <ClInclude Include="Source\Lost\Graphics\Window.h" />
     <ClInclude Include="Source\Lost\Core.h" />
+    <ClInclude Include="Source\Lost\Graphics\Shader.h" />
+    <ClInclude Include="Source\Lost\Graphics\Renderer.h" />
+    <ClInclude Include="Source\Lost\Graphics\VertexBuffer.h" />
+    <ClInclude Include="Source\Lost\Graphics\IndexBuffer.h" />
+    <ClInclude Include="Source\Lost\Graphics\VertexArray.h" />
+    <ClInclude Include="Source\Lost\Graphics\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Lost\Application.cpp">
       <Filter>Lost</Filter>
     </ClCompile>
     <ClCompile Include="Source\Lost\Log.cpp" />
-    <ClCompile Include="Source\Lost\Graphics\Window.cpp" />
     <ClCompile Include="Source\Lost\Core.cpp" />
+    <ClCompile Include="Source\Lost\Graphics\Shader.cpp" />
+    <ClCompile Include="Source\Lost\Graphics\Renderer.cpp" />
+    <ClCompile Include="Source\Lost\Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="Source\Lost\Graphics\IndexBuffer.cpp" />
+    <ClCompile Include="Source\Lost\Graphics\VertexArray.cpp" />
+    <ClCompile Include="Source\Lost\Graphics\VertexBufferLayout.cpp" />
   </ItemGroup>
 </Project>

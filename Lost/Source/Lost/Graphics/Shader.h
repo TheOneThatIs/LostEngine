@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include<unordered_map>
+#include"GLM/glm/glm.hpp"
 
 namespace Lost {
 
@@ -17,11 +18,14 @@ public:
 
 	std::string loadShader(std::string filepath);
 
+	void setUniform1i(const std::string &name, int i1);
+	void setUniform1f(const std::string &name, float f1);
 	void setUniform4f(const std::string& name, float f1, float f2, float f3, float f4);
+	void setUniformMat4f(const std::string &name, const glm::mat4 & matrix);
 
 private:
 	unsigned int compileShader(unsigned int shaderType, const std::string &shaderSrc);
-	unsigned int getUniformLocation(const std::string &name);
+	int getUniformLocation(const std::string &name);
 };
 
 }

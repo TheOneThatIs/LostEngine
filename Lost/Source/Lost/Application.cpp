@@ -1,15 +1,18 @@
 #include"Application.h"
-#include<GL\glew.h>
-#include<GLFW\glfw3.h>
+#include<GL/glew.h>
+#include<GLFW/glfw3.h>
 #include<stdio.h>
 #include<spdlog/spdlog.h>
-#include"Graphics\Renderer.h"
-#include"Graphics\VertexBuffer.h"
-#include"Graphics\IndexBuffer.h"
-#include"Graphics\VertexArray.h"
-#include"Graphics\VertexBufferLayout.h"
-#include"Graphics\Shader.h"
+#include"Graphics/Renderer.h"
+#include"Graphics/VertexBuffer.h"
+#include"Graphics/IndexBuffer.h"
+#include"Graphics/VertexArray.h"
+#include"Graphics/VertexBufferLayout.h"
+#include"Graphics/Shader.h"
 #include<Random/random.hpp>
+#include"Graphics/Texture.h"
+#include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
 
 #include "Log.h"
 
@@ -21,10 +24,10 @@ void resizeCallback(GLFWwindow *window, int width, int height);
 
 
 float square[] = {
-	 0.5f,  0.5f,
-	 0.5f, -0.5f,
-	-0.5f, -0.5f,
-	-0.5f,  0.5
+	 0.5f,  0.5f, 1.0f, 1.0f,
+	 0.5f, -0.5f, 1.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f, 0.0f,
+	-0.5f,  0.5, 0.0f, 1.0f
 };
 
 unsigned int indicies[] {
@@ -71,19 +74,32 @@ namespace Lost {
 
 		//glfwSetWindowOpacity(window, 0.5f);
 
-		Shader shader("Shaders/Shader.vert", "Shaders/Shader.frag");
-		shader.bind();
-		shader.setUniform4f("uColor", 0.5f, 0.6f, 1.0f, 1.0f);
+		GLCALL(glEnable(GL_BLEND));
+		GLCALL(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 		// VBO + VAO
-		VertexBuffer vbo(square, 8 * sizeof(float));
+		VertexBuffer vbo(square, 4 * 4 * sizeof(float));
 		VertexArray vao;
 
 		VertexBufferLayout layout;
 		layout.push<float>(2);
+		layout.push<float>(2);
 		vao.addBuffer(vbo, layout);
 
 		IndexBuffer ibo(indicies, 6);
+
+		glm::mat4 projection = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, 1.0f, 1.0f);
+
+		Shader shader("Resources/Shaders/Shader.vert", "Resources/Shaders/Shader.frag");
+		shader.bind();
+
+		Texture texture("Resources/Textures/Texture.png");
+		texture.bind();
+
+		//Uniforms
+		shader.setUniform4f("uColor", 0.5f, 0.6f, 1.0f, 1.0f);
+		shader.setUniform1i("uTexture", 0);
+		shader.setUniformMat4f("uModelViewProjectionMatrix", projection);
 
 		while(!glfwWindowShouldClose(window)) {
 			//Events

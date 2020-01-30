@@ -40,6 +40,9 @@ namespace Lost {
 
 	std::string Shader::loadShader(std::string filepath) {
 		std::ifstream inFile(filepath);
+		if(!inFile.is_open()) {
+			Log::error("Shader file does not exist!");
+		}
 
 		std::string line;
 		std::stringstream ss;
@@ -69,10 +72,16 @@ namespace Lost {
 		return shader;
 	}
 
+	void Shader::setUniform1i(const std::string &name, int i1) {
+		GLCALL(glUniform1i(getUniformLocation(name), i1));
+	}
+	void Shader::setUniform1f(const std::string &name, float f1) {
+		GLCALL(glUniform1f(getUniformLocation(name), f1));
+	}
 	void Shader::setUniform4f(const std::string &name, float f1, float f2, float f3, float f4) {
 		GLCALL(glUniform4f(getUniformLocation(name), f1, f2, f3, f4));
 	}
-	unsigned int Shader::getUniformLocation(const std::string &name) {
+	int Shader::getUniformLocation(const std::string &name) {
 		if(uniformLocationCache.find(name) != uniformLocationCache.end())
 			return uniformLocationCache[name];
 
@@ -83,6 +92,11 @@ namespace Lost {
 		uniformLocationCache[name] = location;
 
 		return location;
+	}
+
+
+	void Shader::setUniformMat4f(const std::string &name, const glm::mat4 &matrix) {
+		GLCALL(glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
 	}
 
 }
